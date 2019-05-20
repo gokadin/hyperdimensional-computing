@@ -1,14 +1,10 @@
 package main
 
 import "fmt"
-import "./hyperdimentional"
+import "./example"
 
 func main() {
 	fmt.Println("hello world")
 
-	x := hyperdimentional.NewHdVec()
-
-    x.Print()
-
-	fmt.Scanln()
+	example.Run()
 }
