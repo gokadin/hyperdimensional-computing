@@ -1,27 +1,45 @@
-package example
+package main
 
 import (
-	"../hyperdimentional"
 	"fmt"
+	"github.com/gokadin/hyperdimentional/src/hyperdimentional"
+	"io/ioutil"
 )
 
 type example struct {
-	letters [127]*hyperdimentional.HdVec
-	trigrams []*hyperdimentional.HdVec
-	english *hyperdimentional.HdVec
+	letters [127]*hyperdimentional.HdVecBinomial
+	trigrams []*hyperdimentional.HdVecBinomial
+	english *hyperdimentional.HdVecBinomial
 }
 
 func Run() {
-	example := newExample()
+	eng := newExample("training_en")
+	_ = eng
 
-	_ = example
+	latin := newExample("training_latin")
+	_ = latin
+
+	comp := newExample("comp")
+	_ = comp
+
+	x := hyperdimentional.CosineSimilarity(eng.english, comp.english)
+	y := hyperdimentional.CosineSimilarity(latin.english, comp.english)
+
+	fmt.Println("ENG -> comp: ", x)
+	fmt.Println("LATIN -> comp: ", y)
 }
 
-func newExample() *example {
+func newExample(filename string) *example {
+	b, err := ioutil.ReadFile("data/" + filename)
+	if err != nil {
+		fmt.Println("Could not find file ", filename, err.Error())
+		return &example{}
+	}
+
 	example := &example{}
 
 	example.encodeLetters()
-	example.encodeTrigrams("the quick brown fox jumped over the green turtle and ate an ant sometime around noon yesterday. This was the saddest moment in history.")
+	example.encodeTrigrams(string(b))
 	example.encodeEnglish()
 
 	return example
@@ -29,7 +47,7 @@ func newExample() *example {
 
 func (e *example) encodeLetters() {
 	for i := 0; i < len(e.letters); i++ {
-		e.letters[i] = hyperdimentional.NewHdVec()
+		e.letters[i] = hyperdimentional.NewHdVecBinomial(10000)
 	}
 }
 
@@ -47,10 +65,15 @@ func (e *example) encodeTrigrams(text string) {
 
 		e.trigrams = append(e.trigrams, secondMultiply)
 	}
-
-    fmt.Println(len(e.trigrams))
 }
 
 func (e *example) encodeEnglish() {
+	for index, trigram := range e.trigrams {
+		if index == 0 {
+			e.english = trigram
+			continue
+		}
 
+        e.english = hyperdimentional.Add(e.english, trigram)
+	}
 }
