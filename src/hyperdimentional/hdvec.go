@@ -6,115 +6,91 @@ import (
 	"math/rand"
 )
 
-type HdVecBinomial struct {
-	vector []int
-}
+type Vector []float64
 
-func NewHdVecBinomial(size int) *HdVecBinomial {
-    hdVec := &HdVecBinomial{
-    	vector: make([]int, size),
-	}
+func New(size int) Vector {
+	vector := make([]float64, size)
 
-    for index := range hdVec.vector {
-		random := rand.Intn(2)
-		if random == 0 {
-			random = -1
+    for index := range vector {
+		random := rand.Intn(100)
+		if random >= 50 {
+            vector[index] = 1.0
+		} else {
+			vector[index] = -1.0
 		}
-		hdVec.vector[index] = random
 	}
 
-    return hdVec
+    return vector
 }
 
-func Rotate(h *HdVecBinomial) *HdVecBinomial {
-	result := make([]int, h.Size())
+func Rotate(v Vector) Vector {
+	length := len(v)
+	result := make([]float64, length)
 
-	for index := range result {
-		if index == h.Size() - 1 {
-			result[index] = h.vector[0]
+	for i := 0; i < length; i++ {
+		if i == length - 1 {
+			result[i] = v[0]
 			break
 		}
 
-		result[index] = h.vector[index + 1]
-	}
-
-	return &HdVecBinomial{
-		vector: result,
-	}
-}
-
-func Multiply(a *HdVecBinomial, b *HdVecBinomial) *HdVecBinomial {
-	result := make([]int, a.Size())
-
-	for index := range result {
-		result[index] = a.vector[index] * b.vector[index]
-	}
-
-    return &HdVecBinomial{
-    	vector: result,
-	}
-}
-
-func Add(a *HdVecBinomial, b *HdVecBinomial) *HdVecBinomial {
-	result := make([]int, a.Size())
-
-	for index := range result {
-		result[index] = a.vector[index] + b.vector[index]
-	}
-
-	return &HdVecBinomial{
-		vector: result,
-	}
-}
-
-func CosineSimilarity(a *HdVecBinomial, b *HdVecBinomial) float64 {
-    dot := DotProduct(a, b)
-
-    magnitudeProduct := a.Magnitude() * b.Magnitude()
-
-    return float64(dot) / magnitudeProduct
-}
-
-func DotProduct(a *HdVecBinomial, b *HdVecBinomial) int {
-	var result int
-	for index := range a.vector {
-        result += a.vector[index] * b.vector[index]
+		result[i] = v[i + 1]
 	}
 
 	return result
 }
 
-func (h *HdVecBinomial) Magnitude() float64 {
-	var result float64
-	for value := range h.vector {
-        result += math.Pow(float64(value), 2.0)
+func Multiply(v1, v2 Vector) Vector {
+	length := len(v1)
+	result := make([]float64, length)
+
+    for i := 0; i < length; i++ {
+		result[i] = v1[i] * v2[i]
+	}
+
+    return result
+}
+
+func Add(v1, v2 Vector) Vector {
+	length := len(v1)
+	result := make([]float64, length)
+
+    for i := 0; i < length; i++ {
+		result[i] = v1[i] + v2[i]
+	}
+
+	return result
+}
+
+func Cosine(v1, v2 Vector) float64 {
+    dot := Dot(v1, v2)
+
+    magnitudeProduct := v1.Magnitude() * v2.Magnitude()
+
+    return dot / magnitudeProduct
+}
+
+func Dot(v1, v2 Vector) float64 {
+	length := len(v1)
+	result := 0.0
+    for i := 0; i < length; i++ {
+        result += v1[i] * v2[i]
+	}
+
+	return result
+}
+
+func (v Vector) Magnitude() float64 {
+	result := 0.0
+
+	for _, value := range v {
+        result += value * value
 	}
 
 	return math.Sqrt(result)
 }
 
-func (h *HdVecBinomial) Print() {
-	for _, value := range h.vector {
+func (v Vector) Print() {
+	for _, value := range v {
 		fmt.Println(value)
 	}
-}
-
-func (h *HdVecBinomial) Size() int {
-	return len(h.vector)
-}
-
-func (h *HdVecBinomial) First() int {
-	return h.vector[0]
-}
-
-func (h *HdVecBinomial) Last() int {
-	return h.vector[len(h.vector) - 1]
-}
-
-func (h *HdVecBinomial) Get(index int) int {
-    return h.vector[index]
-}
-
-func (h *HdVecBinomial) Values() *[]int {
-	return &h.vector
 }

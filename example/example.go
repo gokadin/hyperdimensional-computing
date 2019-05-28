@@ -7,9 +7,9 @@ import (
 )
 
 type example struct {
-	letters [127]*hyperdimentional.HdVecBinomial
-	trigrams []*hyperdimentional.HdVecBinomial
-	english *hyperdimentional.HdVecBinomial
+	letters [127]hyperdimentional.Vector
+	trigrams []hyperdimentional.Vector
+	english hyperdimentional.Vector
 }
 
 func Run() {
@@ -22,8 +22,8 @@ func Run() {
 	comp := newExample("comp")
 	_ = comp
 
-	x := hyperdimentional.CosineSimilarity(eng.english, comp.english)
-	y := hyperdimentional.CosineSimilarity(latin.english, comp.english)
+	x := hyperdimentional.Cosine(eng.english, comp.english)
+	y := hyperdimentional.Cosine(latin.english, comp.english)
 
 	fmt.Println("ENG -> comp: ", x)
 	fmt.Println("LATIN -> comp: ", y)
@@ -47,7 +47,7 @@ func newExample(filename string) *example {
 
 func (e *example) encodeLetters() {
 	for i := 0; i < len(e.letters); i++ {
-		e.letters[i] = hyperdimentional.NewHdVecBinomial(10000)
+		e.letters[i] = hyperdimentional.New(10000)
 	}
 }
 
