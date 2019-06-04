@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f2ec977-91e3-4236-b7a8-7fa05b094abd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bla/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/training_fr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/comp" beforeDir="false" afterPath="$PROJECT_DIR$/data/training_test" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/training_en" beforeDir="false" afterPath="$PROJECT_DIR$/data/training_en" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/training_latin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/example/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/text/example.go" beforeDir="false" afterPath="$PROJECT_DIR$/example/text/example.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hyperdimentional/hdvec.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyperdimentional/VecBinomial.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/example/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/example/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bla/main.go" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -334,15 +325,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0882353" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.0882353" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32964426" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.2284585" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.27667984" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.27667984" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
