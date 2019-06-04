@@ -2,14 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f2ec977-91e3-4236-b7a8-7fa05b094abd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/example/text/example.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/example/example_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/training_fr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/comp" beforeDir="false" afterPath="$PROJECT_DIR$/data/training_test" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/training_en" beforeDir="false" afterPath="$PROJECT_DIR$/data/training_en" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/example.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/training_latin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/example/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hyperdimentional/hdvec.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyperdimentional/hdvec.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/hyperdimentional/hdvec_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/hyperdimentional/hdvec_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/text/example.go" beforeDir="false" afterPath="$PROJECT_DIR$/example/text/example.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hyperdimentional/hdvec.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/hyperdimentional/VecBinomial.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/example/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/example/example_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,99 +21,70 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/example/main.go">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/text/example.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+            <state relative-caret-position="734">
+              <caret line="66" column="38" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hyperdimentional/hdvec.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="61" column="34" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
-              <folding>
-                <element signature="e#26#64#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/hyperdimentional/hdvec_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/example/example_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
-              <folding>
-                <element signature="e#16#105#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://C:/Go/src/testing/testing.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20424">
-              <caret line="867" selection-start-line="867" selection-end-line="867" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+        <entry file="file://$PROJECT_DIR$/storage/letters/computed_letter_4">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/text/example.go">
+        <entry file="file://$PROJECT_DIR$/storage/letters/computed_letter_0">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/data/training_test">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="8" selection-start-column="8" selection-end-column="8" />
-              <folding>
-                <element signature="e#14#112#0" expanded="true" />
-              </folding>
+              <caret column="25" selection-start-column="25" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/comp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="26" selection-start-column="26" selection-end-column="26" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/storage/letters/computed_letter_1">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/training_latin">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="18" column="314" selection-start-line="18" selection-start-column="314" selection-end-line="18" selection-end-column="314" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/storage/letters/computed_letter_126">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/training_en">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118320">
-              <caret line="4930" column="72" selection-start-line="4930" selection-start-column="72" selection-end-line="4930" selection-end-column="72" />
+            <state relative-caret-position="373">
+              <caret line="9880" column="4" selection-start-line="9880" selection-start-column="4" selection-end-line="9880" selection-end-column="4" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/storage/computed_test.ptrn">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/storage/computed_en.ptrn">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/storage/computed_fr.ptrn">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -139,13 +112,19 @@
         <option value="$PROJECT_DIR$/go.mod.go" />
         <option value="$PROJECT_DIR$/data/training_fr" />
         <option value="$PROJECT_DIR$/data/comp" />
-        <option value="$PROJECT_DIR$/data/training_en" />
-        <option value="$PROJECT_DIR$/src/hyperdimentional/hdvec.go" />
         <option value="$PROJECT_DIR$/test/hyperdimentional/hdvec_test.go" />
-        <option value="$PROJECT_DIR$/test/example/example_test.go" />
         <option value="$PROJECT_DIR$/example/example.go" />
-        <option value="$PROJECT_DIR$/example/text/example.go" />
+        <option value="$PROJECT_DIR$/test/example/example_test.go" />
+        <option value="$PROJECT_DIR$/data/training_en" />
+        <option value="$PROJECT_DIR$/data/training_latin" />
+        <option value="$PROJECT_DIR$/src/hyperdimentional/hdvec.go" />
+        <option value="$PROJECT_DIR$/src/hyperdimentional/VecBinary.go" />
+        <option value="$PROJECT_DIR$/src/hyperdimentional/Vec.go" />
+        <option value="$PROJECT_DIR$/bla/main.go" />
         <option value="$PROJECT_DIR$/example/main.go" />
+        <option value="$PROJECT_DIR$/src/hyperdimentional/VecBinomial.go" />
+        <option value="$PROJECT_DIR$/example/text/example.go" />
+        <option value="$PROJECT_DIR$/data/training_test" />
       </list>
     </option>
   </component>
@@ -163,7 +142,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -201,6 +179,11 @@
             <path>
               <item name="hyperdimentional-computing-example" type="b2602c69:ProjectViewProjectNode" />
               <item name="hyperdimentional-computing-example" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hyperdimentional-computing-example" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hyperdimentional-computing-example" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -219,6 +202,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -228,16 +212,20 @@
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/hyperdimentional" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\zedkan\repos\hyperdimentional-computing-example\example\text" />
       <recent name="C:\Users\zedkan\repos\hyperdimentional-computing-example\example" />
       <recent name="C:\Users\zedkan\repos\hyperdimentional-computing-example" />
       <recent name="C:\Users\zedkan\repos\hyperdimentional-computing-example\src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\zedkan\repos\hyperdimentional-computing-example\src\hyperdimentional" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -252,7 +240,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.Test_Add_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional">
+  <component name="RunManager" selected="Go Build.go build github.com/gokadin/hyperdimentional/example">
     <configuration name="go build github.com/gokadin/hyperdimentional/example" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="hdcomputingproto" />
       <working_directory value="$PROJECT_DIR$" />
@@ -262,102 +250,99 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="Test_Add_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="go build main.go (1)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="hdcomputingproto" />
-      <working_directory value="$PROJECT_DIR$/test/hyperdimentional" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/gokadin/hyperdimentional/test/hyperdimentional" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^Test_Add_isCorrect$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Test_Cosine_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="hdcomputingproto" />
-      <working_directory value="$PROJECT_DIR$/test/hyperdimentional" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/gokadin/hyperdimentional/test/hyperdimentional" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^Test_Cosine_isCorrect$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Test_Magnitude_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="hdcomputingproto" />
-      <working_directory value="$PROJECT_DIR$/test/hyperdimentional" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/gokadin/hyperdimentional/test/hyperdimentional" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^Test_Magnitude_isCorrect$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="hdvec_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="hdcomputingproto" />
-      <working_directory value="$PROJECT_DIR$/test/hyperdimentional" />
-      <framework value="gotest" />
+      <working_directory value="$PROJECT_DIR$" />
       <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/example/main.go" />
       <package value="github.com/gokadin/hyperdimentional" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/test/hyperdimentional/hdvec_test.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="hdcomputingproto" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/bla/main.go" />
+      <package value="github.com/gokadin/hyperdimentional" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test_EncodeLanguageWithOneTrigram in github.com/gokadin/hyperdimentional/test/example" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="hdcomputingproto" />
+      <working_directory value="$PROJECT_DIR$/test/example" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/gokadin/hyperdimentional/test/example" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^Test_EncodeLanguageWithOneTrigram$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test_EncodeLanguage_withMultipleTrigrams in github.com/gokadin/hyperdimentional/test/example" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="hdcomputingproto" />
+      <working_directory value="$PROJECT_DIR$/test/example" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/gokadin/hyperdimentional/test/example" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^Test_EncodeLanguage_withMultipleTrigrams$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.Test_Add_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" />
-        <item itemvalue="Go Test.hdvec_test.go" />
         <item itemvalue="Go Build.go build github.com/gokadin/hyperdimentional/example" />
-        <item itemvalue="Go Test.Test_Cosine_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" />
-        <item itemvalue="Go Test.Test_Magnitude_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" />
+        <item itemvalue="Go Build.go build main.go (1)" />
+        <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Test.Test_EncodeLanguage_withMultipleTrigrams in github.com/gokadin/hyperdimentional/test/example" />
+        <item itemvalue="Go Test.Test_EncodeLanguageWithOneTrigram in github.com/gokadin/hyperdimentional/test/example" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="Test_Cosine_isCorrect_in_github_com_gokadin_hyperdimentional_test_hyperdimentional - 2019.05.27 at 21h 41m 59s.xml">
-      <configuration name="Test_Cosine_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_NewExample_works_in_github_com_gokadin_hyperdimentional_test_example - 2019.06.02 at 11h 56m 33s.xml">
+      <configuration name="Test_NewExample_works in github.com/gokadin/hyperdimentional/test/example" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_Cosine_isCorrect_in_github_com_gokadin_hyperdimentional_test_hyperdimentional - 2019.05.27 at 21h 42m 04s.xml">
-      <configuration name="Test_Cosine_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_NewExample_works_in_github_com_gokadin_hyperdimentional_test_example - 2019.06.02 at 11h 57m 32s.xml">
+      <configuration name="Test_NewExample_works in github.com/gokadin/hyperdimentional/test/example" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_Cosine_isCorrect_in_github_com_gokadin_hyperdimentional_test_hyperdimentional - 2019.05.27 at 21h 42m 10s.xml">
-      <configuration name="Test_Cosine_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_NewExample_works_in_github_com_gokadin_hyperdimentional_test_example - 2019.06.02 at 16h 34m 00s.xml">
+      <configuration name="Test_NewExample_works in github.com/gokadin/hyperdimentional/test/example" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_Cosine_isCorrect_in_github_com_gokadin_hyperdimentional_test_hyperdimentional - 2019.05.27 at 21h 42m 16s.xml">
-      <configuration name="Test_Cosine_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_NewExample_works_in_github_com_gokadin_hyperdimentional_test_example - 2019.06.02 at 16h 34m 16s.xml">
+      <configuration name="Test_NewExample_works in github.com/gokadin/hyperdimentional/test/example" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_Cosine_isCorrect_in_github_com_gokadin_hyperdimentional_test_hyperdimentional - 2019.05.27 at 21h 42m 22s.xml">
-      <configuration name="Test_Cosine_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_NewExample_works_in_github_com_gokadin_hyperdimentional_test_example - 2019.06.02 at 16h 38m 04s.xml">
+      <configuration name="Test_NewExample_works in github.com/gokadin/hyperdimentional/test/example" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_Cosine_isCorrect_in_github_com_gokadin_hyperdimentional_test_hyperdimentional - 2019.05.27 at 21h 43m 14s.xml">
-      <configuration name="Test_Cosine_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_NewExample_works_in_github_com_gokadin_hyperdimentional_test_example - 2019.06.02 at 16h 38m 07s.xml">
+      <configuration name="Test_NewExample_works in github.com/gokadin/hyperdimentional/test/example" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_Cosine_isCorrect_in_github_com_gokadin_hyperdimentional_test_hyperdimentional - 2019.05.27 at 21h 48m 05s.xml">
-      <configuration name="Test_Cosine_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_NewExample_works_in_github_com_gokadin_hyperdimentional_test_example - 2019.06.02 at 16h 38m 18s.xml">
+      <configuration name="Test_NewExample_works in github.com/gokadin/hyperdimentional/test/example" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="hdvec_test_go - 2019.05.28 at 20h 53m 07s.xml">
-      <configuration name="hdvec_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_EncodeLanguageWithOneTrigram_in_github_com_gokadin_hyperdimentional_test_example - 2019.06.02 at 16h 38m 47s.xml">
+      <configuration name="Test_EncodeLanguageWithOneTrigram in github.com/gokadin/hyperdimentional/test/example" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="hdvec_test_go - 2019.06.02 at 11h 26m 38s.xml">
-      <configuration name="hdvec_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_EncodeLanguage_withMultipleTrigrams_in_github_com_gokadin_hyperdimentional_test_example - 2019.06.02 at 16h 39m 55s.xml">
+      <configuration name="Test_EncodeLanguage_withMultipleTrigrams in github.com/gokadin/hyperdimentional/test/example" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_Add_isCorrect_in_github_com_gokadin_hyperdimentional_test_hyperdimentional - 2019.06.02 at 11h 32m 09s.xml">
-      <configuration name="Test_Add_isCorrect in github.com/gokadin/hyperdimentional/test/hyperdimentional" configurationId="GoTestRunConfiguration" />
+    <history-entry file="Test_EncodeLanguage_withMultipleTrigrams_in_github_com_gokadin_hyperdimentional_test_example - 2019.06.02 at 16h 39m 58s.xml">
+      <configuration name="Test_EncodeLanguage_withMultipleTrigrams in github.com/gokadin/hyperdimentional/test/example" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.08783784" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0882353" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32964426" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32885376" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2284585" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.27667984" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -378,6 +363,13 @@
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
   </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="GoTestRunConfiguration">
+        <watch expression="*(*&quot;[]float64&quot;)(824634057728)" />
+      </configuration>
+    </watches-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/go.mod">
       <provider selected="true" editor-type-id="text-editor" />
@@ -389,47 +381,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Go/src/testing/testing.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20424">
-          <caret line="867" selection-start-line="867" selection-end-line="867" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/comp">
+    <entry file="file://C:/Go/src/testing/testing.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="26" selection-start-column="26" selection-end-column="26" />
+        <state relative-caret-position="740">
+          <caret line="829" selection-start-line="829" selection-end-line="829" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/training_latin">
+    <entry file="file://C:/Go/src/runtime/asm_amd64.s">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="18" column="314" selection-start-line="18" selection-start-column="314" selection-end-line="18" selection-end-column="314" />
+        <state relative-caret-position="216">
+          <caret line="1336" selection-start-line="1336" selection-end-line="1336" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/training_en">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118320">
-          <caret line="4930" column="72" selection-start-line="4930" selection-start-column="72" selection-end-line="4930" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hyperdimentional/hdvec.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="61" column="34" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
-          <folding>
-            <element signature="e#26#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hyperdimentional/Vec.go" />
+    <entry file="file://$PROJECT_DIR$/src/hyperdimentional/VecBinary.go" />
     <entry file="file://$PROJECT_DIR$/test/hyperdimentional/hdvec_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -439,28 +409,101 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/example/example_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
-          <folding>
-            <element signature="e#16#105#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="720">
+          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/text/example.go">
+    <entry file="file://$PROJECT_DIR$/data/training_fr">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        <state relative-caret-position="240072">
+          <caret line="10003" column="1" selection-start-line="10003" selection-start-column="1" selection-end-line="10003" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bla/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
-            <element signature="e#14#112#0" expanded="true" />
+            <element signature="e#14#91#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+        <state relative-caret-position="240">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="e#14#89#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hyperdimentional/VecBinomial.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="843">
+          <caret line="123" selection-start-line="123" selection-end-line="123" />
+          <folding>
+            <element signature="e#26#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/runtime/panic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="689" selection-start-line="689" selection-end-line="689" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/letters/computed_letter_2">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/letters/computed_letter_4">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/letters/computed_letter_0">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/letters/computed_letter_1">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/letters/computed_letter_126">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/computed_en.ptrn">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/computed_fr.ptrn">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/computed_test.ptrn">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/training_en">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="9880" column="4" selection-start-line="9880" selection-start-column="4" selection-end-line="9880" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/text/example.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="734">
+          <caret line="66" column="38" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/training_test">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="25" selection-start-column="25" selection-end-column="25" />
         </state>
       </provider>
     </entry>

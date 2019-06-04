@@ -16,11 +16,11 @@ func NewVecBinomial(size int) *VecBinomial {
 	}
 
     for index := range vec.values {
-		random := rand.Intn(100)
-		if random >= 50 {
-            vec.values[index] = 1.0
+		random := rand.Intn(2)
+		if random == 0 {
+            vec.values[index] = -1.0
 		} else {
-			vec.values[index] = -1.0
+			vec.values[index] = 1.0
 		}
 	}
 
@@ -61,6 +61,16 @@ func Multiply(v1, v2 *VecBinomial) *VecBinomial {
 func (v *VecBinomial) Add(v2 *VecBinomial) {
     for i := 0; i < v.Size(); i++ {
 		v.values[i] += v2.values[i]
+	}
+}
+
+func (v *VecBinomial) ToBinomial() {
+	for i := 0; i < v.Size(); i++ {
+		if v.values[i] > 0 {
+			v.values[i] = 1
+		} else {
+			v.values[i] = -1
+		}
 	}
 }
 
@@ -107,4 +117,8 @@ func (v *VecBinomial) Size() int {
 
 func (v *VecBinomial) At(index int) float64 {
 	return v.values[index]
+}
+
+func (v *VecBinomial) Set(index int, value float64) {
+	v.values[index] = value
 }

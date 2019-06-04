@@ -1,7 +1,12 @@
 package main
 
-import "github.com/gokadin/hyperdimentional/example/text"
+import (
+	"github.com/gokadin/hyperdimentional/example/text"
+	"math/rand"
+	"time"
+)
 
 func main() {
-	Run()
+	rand.Seed(time.Now().UTC().UnixNano())
+	text.Run()
 }
