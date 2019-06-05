@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/gokadin/hyperdimentional/example/text"
+	"github.com/gokadin/hyperdimensional-computing/example/text"
 	"math/rand"
 	"time"
 )

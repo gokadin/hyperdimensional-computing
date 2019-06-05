@@ -3,7 +3,7 @@ package text
 import (
 	"bufio"
 	"fmt"
-	"github.com/gokadin/hyperdimentional/src/hyperdimentional"
+	"github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -12,12 +12,12 @@ import (
 )
 
 type letters struct {
-	letters [127]*hyperdimentional.VecBinomial
+	letters [127]*hyperdimensional.VecBinomial
 }
 
 type example struct {
 	letters *letters
-	lang *hyperdimentional.VecBinomial
+	lang *hyperdimensional.VecBinomial
 	text string
 	mutex *sync.Mutex
 }
@@ -55,8 +55,8 @@ func Run() {
 	diff := time.Now().Sub(t)
 	fmt.Println("Finished encoding in ", diff.Seconds(), " seconds.")
 
-	x := hyperdimentional.Cosine(eng.lang, test.lang)
-	y := hyperdimentional.Cosine(fr.lang, test.lang)
+	x := hyperdimensional.Cosine(eng.lang, test.lang)
+	y := hyperdimensional.Cosine(fr.lang, test.lang)
 
 	fmt.Println("ENG -> ", x)
 	fmt.Println("FR -> ", y)
@@ -93,14 +93,14 @@ func runLanguageFromCache(letters *letters, lang string) *example {
 	return ex
 }
 
-func vecFromFile(filename string) *hyperdimentional.VecBinomial {
+func vecFromFile(filename string) *hyperdimensional.VecBinomial {
 	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Could not find file " + filename, err.Error())
 	}
 	defer file.Close()
 
-	vec := hyperdimentional.NewVecBinomial(10000)
+	vec := hyperdimensional.NewVecBinomial(10000)
 	scanner := bufio.NewScanner(file)
 	i := 0
 	for scanner.Scan() {
@@ -115,7 +115,7 @@ func vecFromFile(filename string) *hyperdimentional.VecBinomial {
 	return vec
 }
 
-func writePattern(filename string, vec *hyperdimentional.VecBinomial) {
+func writePattern(filename string, vec *hyperdimensional.VecBinomial) {
 	f, err := os.Create(filename)
 	if err != nil {
 		panic(err)
@@ -153,13 +153,13 @@ func (l *letters) EncodeLetters(fromCache bool) {
 	}
 
 	for i := 0; i < len(l.letters); i++ {
-		l.letters[i] = hyperdimentional.NewVecBinomial(10000)
+		l.letters[i] = hyperdimensional.NewVecBinomial(10000)
 
 		writePattern("storage/letters/computed_letter_" + strconv.Itoa(i), l.letters[i])
 	}
 }
 
-func (l *letters) GetLetter(index uint8) *hyperdimentional.VecBinomial {
+func (l *letters) GetLetter(index uint8) *hyperdimensional.VecBinomial {
 	if index < 0 || index > uint8(len(l.letters) - 1) {
 		return l.letters[0]
 	}
@@ -167,7 +167,7 @@ func (l *letters) GetLetter(index uint8) *hyperdimentional.VecBinomial {
 	return l.letters[index]
 }
 
-func (e *example) GetLanguage() *hyperdimentional.VecBinomial {
+func (e *example) GetLanguage() *hyperdimensional.VecBinomial {
 	return e.lang
 }
 
@@ -198,11 +198,11 @@ func (e *example) worker(lCh chan int, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	for index := range lCh {
-		first := hyperdimentional.Rotate(hyperdimentional.Rotate(e.letters.GetLetter(e.text[index])))
-		second := hyperdimentional.Rotate(e.letters.GetLetter(e.text[index + 1]))
+		first := hyperdimensional.Rotate(hyperdimensional.Rotate(e.letters.GetLetter(e.text[index])))
+		second := hyperdimensional.Rotate(e.letters.GetLetter(e.text[index + 1]))
 		third := e.letters.GetLetter(e.text[index + 2])
-		firstMultiply := hyperdimentional.Multiply(first, second)
-		secondMultiply := hyperdimentional.Multiply(firstMultiply, third)
+		firstMultiply := hyperdimensional.Multiply(first, second)
+		secondMultiply := hyperdimensional.Multiply(firstMultiply, third)
 
 		e.mutex.Lock()
 

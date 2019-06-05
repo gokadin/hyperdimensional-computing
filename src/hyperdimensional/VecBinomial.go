@@ -1,4 +1,4 @@
-package hyperdimentional
+package hyperdimensional
 
 import (
 	"fmt"

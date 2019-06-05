@@ -1,14 +1,14 @@
-package hyperdimentional
+package hyperdimensional
 
 import (
-	"github.com/gokadin/hyperdimentional/src/hyperdimentional"
+	"github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
 	"math"
 	"testing"
 )
 
 func Test_Size_isCorrect(t *testing.T) {
 	// Arrange
-    vector := hyperdimentional.NewVecBinomial(10000)
+    vector := hyperdimensional.NewVecBinomial(10000)
 
 	// Assert
     if vector.Size() != 10000 {
@@ -18,10 +18,10 @@ func Test_Size_isCorrect(t *testing.T) {
 
 func Test_Rotate_isCorrect(t *testing.T) {
 	// Arrange
-	vector := hyperdimentional.NewVecBinomial(10)
+	vector := hyperdimensional.NewVecBinomial(10)
 
 	// Act
-	rotated := hyperdimentional.Rotate(vector)
+	rotated := hyperdimensional.Rotate(vector)
 
 	// Assert
 	if rotated.Size() != vector.Size() {
@@ -35,11 +35,11 @@ func Test_Rotate_isCorrect(t *testing.T) {
 
 func Test_Multiply_isCorrect(t *testing.T) {
 	// Arrange
-	vec1 := hyperdimentional.NewVecBinomial(10)
-	vec2 := hyperdimentional.NewVecBinomial(10)
+	vec1 := hyperdimensional.NewVecBinomial(10)
+	vec2 := hyperdimensional.NewVecBinomial(10)
 
 	// Act
-	multiplied := hyperdimentional.Multiply(vec1, vec2)
+	multiplied := hyperdimensional.Multiply(vec1, vec2)
 
 	// Assert
 	if multiplied.Size() != vec1.Size() {
@@ -55,11 +55,11 @@ func Test_Multiply_isCorrect(t *testing.T) {
 
 func Test_Dot_isCorrect(t *testing.T) {
 	// Arrange
-	vec1 := hyperdimentional.NewVecBinomial(3)
-	vec2 := hyperdimentional.NewVecBinomial(3)
+	vec1 := hyperdimensional.NewVecBinomial(3)
+	vec2 := hyperdimensional.NewVecBinomial(3)
 
 	// Act
-	dot := hyperdimentional.Dot(vec1, vec2)
+	dot := hyperdimensional.Dot(vec1, vec2)
 
 	// Assert
 	expected := vec1.At(0) * vec2.At(0) + vec1.At(1) * vec2.At(1) + vec1.At(2) * vec2.At(2)
@@ -70,7 +70,7 @@ func Test_Dot_isCorrect(t *testing.T) {
 
 func Test_Magnitude_isCorrect(t *testing.T) {
 	// Arrange
-	vec := hyperdimentional.NewVecBinomial(3)
+	vec := hyperdimensional.NewVecBinomial(3)
 
 	// Act
     result := vec.Magnitude()
@@ -84,14 +84,14 @@ func Test_Magnitude_isCorrect(t *testing.T) {
 
 func Test_Cosine_isCorrect(t *testing.T) {
 	// Arrange
-	vec1 := hyperdimentional.NewVecBinomial(3)
-	vec2 := hyperdimentional.NewVecBinomial(3)
+	vec1 := hyperdimensional.NewVecBinomial(3)
+	vec2 := hyperdimensional.NewVecBinomial(3)
 
 	// Act
-	result := hyperdimentional.Cosine(vec1, vec2)
+	result := hyperdimensional.Cosine(vec1, vec2)
 
 	// Assert
-	expected := hyperdimentional.Dot(vec1, vec2) / (vec1.Magnitude() * vec2.Magnitude())
+	expected := hyperdimensional.Dot(vec1, vec2) / (vec1.Magnitude() * vec2.Magnitude())
 	if result != expected {
 		t.Fatalf("Cosine is incorrect. Should be %f, received %f", expected, result)
 	}
@@ -99,8 +99,8 @@ func Test_Cosine_isCorrect(t *testing.T) {
 
 func Test_Add_isCorrect(t *testing.T) {
 	// Arrange
-	vec1 := hyperdimentional.NewVecBinomial(3)
-	vec2 := hyperdimentional.NewVecBinomial(3)
+	vec1 := hyperdimensional.NewVecBinomial(3)
+	vec2 := hyperdimensional.NewVecBinomial(3)
 	expectedValue1 := vec1.At(0) + vec2.At(0)
 	expectedValue2 := vec1.At(1) + vec2.At(1)
 	expectedValue3 := vec1.At(2) + vec2.At(2)
