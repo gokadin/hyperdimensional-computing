@@ -22,3 +22,4 @@ The algorithm for this example is as follows:
 
 # Resources
 - Paper on hyperdimensional computing by Pentti Kanerva: http://www.rctn.org/vs265/kanerva09-hyperdimensional.pdf
+- Another repository implementing language recognition: https://github.com/abbas-rahimi/HDC-Language-Recognition
