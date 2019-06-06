@@ -21,7 +21,7 @@ func Test_Rotate_isCorrect(t *testing.T) {
 	vector := hyperdimensional.NewVecBinomial(10)
 
 	// Act
-	rotated := hyperdimensional.Rotate(vector)
+	rotated := hyperdimensional.Rotate(vector, 1)
 
 	// Assert
 	if rotated.Size() != vector.Size() {
@@ -29,6 +29,23 @@ func Test_Rotate_isCorrect(t *testing.T) {
 	}
 
 	if rotated.At(0) != vector.At(1) || rotated.At(rotated.Size() - 1) != vector.At(0) {
+		t.Fatalf("Rotation failed.")
+	}
+}
+
+func Test_Rotate_isCorrectWhenCountIsMoreThanOne(t *testing.T) {
+	// Arrange
+	vector := hyperdimensional.NewVecBinomial(10)
+
+	// Act
+	rotated := hyperdimensional.Rotate(vector, 3)
+
+	// Assert
+	if rotated.Size() != vector.Size() {
+		t.Fatalf("Size does not match.")
+	}
+
+	if rotated.At(0) != vector.At(3) || rotated.At(rotated.Size() - 3) != vector.At(0) {
 		t.Fatalf("Rotation failed.")
 	}
 }

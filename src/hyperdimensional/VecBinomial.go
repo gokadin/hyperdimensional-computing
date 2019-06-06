@@ -33,16 +33,16 @@ func newEmpty(size int) *VecBinomial {
 	}
 }
 
-func Rotate(v *VecBinomial) *VecBinomial {
+func Rotate(v *VecBinomial, count int) *VecBinomial {
 	result := newEmpty(v.Size())
 
 	for i := 0; i < result.Size(); i++ {
-		if i == result.Size() - 1 {
-			result.values[i] = v.values[0]
-			break
+		if i >= result.Size() - count {
+			result.values[i] = v.values[count - (result.Size() - i)]
+			continue
 		}
 
-		result.values[i] = v.values[i + 1]
+		result.values[i] = v.values[i + count]
 	}
 
 	return result

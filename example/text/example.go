@@ -6,6 +6,7 @@ import (
 	"github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strconv"
 	"sync"
 	"time"
@@ -20,6 +21,20 @@ type example struct {
 	lang *hyperdimensional.VecBinomial
 	text string
 	mutex *sync.Mutex
+}
+
+func Run2() {
+	letters := NewLetters()
+	_ = letters
+	
+	err := filepath.Walk("data/training", func(path string, info os.FileInfo, err error) error {
+		
+		
+		return  nil
+	})
+	if err != nil {
+        panic(err)
+	}
 }
 
 func Run() {
