@@ -1,6 +1,8 @@
 package text
 
 import (
+	"bufio"
+	"fmt"
 	"github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
 	"sync"
 )
@@ -11,6 +13,8 @@ type Encoder struct {
 	letters *Letters
 	profile *hyperdimensional.VecBinomial
 	mutex *sync.Mutex
+	totalCount int
+	counter int
 }
 
 func NewEncoder(letters *Letters) *Encoder {
@@ -20,8 +24,9 @@ func NewEncoder(letters *Letters) *Encoder {
 	}
 }
 
-func (e *Encoder) encodeLanguage(text *string) *hyperdimensional.VecBinomial {
-
+func (e *Encoder) encodeLanguage(text *string, writer *bufio.Writer) *hyperdimensional.VecBinomial {
+	e.profile = nil
+	e.counter = 0
 	gramChannel := make(chan *[]uint8)
 	wg := new(sync.WaitGroup)
 
@@ -29,14 +34,19 @@ func (e *Encoder) encodeLanguage(text *string) *hyperdimensional.VecBinomial {
         wg.Add(1)
         go e.encodeGram(gramChannel, wg)
 	}
-
+	
 	indices := make([]uint8, GramFactor)
+	e.totalCount = (len(*text) - GramFactor) / GramFactor
 	for i := 0; i < len(*text) - GramFactor; i+= GramFactor {
         for index := range indices {
             indices[index] = (*text)[i + index]
 		}
 
         gramChannel <- &indices
+
+		if writer != nil {
+			fmt.Fprintf(writer, "\rProgress: %d/%d", e.counter, e.totalCount)
+		}
 	}
 
 	close(gramChannel)
@@ -72,7 +82,9 @@ func (e *Encoder) encodeGram(textIndicesChannel chan *[]uint8, wg *sync.WaitGrou
 		} else {
 			e.profile.Add(gram)
 		}
-
+		
+		e.counter++
+		
 		e.mutex.Unlock()
 	}
 }

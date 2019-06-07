@@ -1,6 +1,7 @@
 package text
 
 import (
+	"bufio"
 	"fmt"
 	"github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
 	"io/ioutil"
@@ -11,7 +12,7 @@ import (
 	"time"
 )
 
-const UseCache = true
+const UseCache = false
 
 type example struct {
 	letters Letters
@@ -52,6 +53,7 @@ func (e *example) encodeLetters() {
 }
 
 func (e *example) encodeLanguages() {
+	progressWriter := bufio.NewWriter(os.Stdout)
 	e.languages = make([]*Language, 0)
 
 	wg := new(sync.WaitGroup)
@@ -76,7 +78,7 @@ func (e *example) encodeLanguages() {
 				}
 				text := string(b)
 
-                language.encodeLanguage(&text)
+                language.encodeLanguage(&text, progressWriter)
 				writeToCache("storage/computed_" + language.Name, language.Profile)
 			}()
 		}
@@ -99,7 +101,7 @@ func (e *example) encodeTest() {
 	text := string(b)
 
 	e.test = NewLanguage("test", &e.letters)
-	e.test.encodeLanguage(&text)
+	e.test.encodeLanguage(&text, nil)
 }
 
 func (e *example) compare() {

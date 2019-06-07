@@ -1,6 +1,9 @@
 package text
 
-import "github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
+import (
+    "bufio"
+    "github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
+)
 
 type Language struct {
     Name string
@@ -17,6 +20,6 @@ func NewLanguage(name string, letters *Letters) *Language {
     }
 }
 
-func (l *Language) encodeLanguage(text *string) {
-    l.Profile = l.encoder.encodeLanguage(text)
+func (l *Language) encodeLanguage(text *string, writer *bufio.Writer) {
+    l.Profile = l.encoder.encodeLanguage(text, writer)
 }
