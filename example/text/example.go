@@ -46,6 +46,7 @@ func (e *example) encodeLetters() {
 	} else {
 		for i := range e.letters {
 			e.letters[i] = hyperdimensional.NewVecBinomial(10000)
+			writeToCache("storage/letters/computed_letter_" + strconv.Itoa(i), e.letters[i])
 		}
 	}
 }
@@ -60,10 +61,10 @@ func (e *example) encodeLanguages() {
 			return nil
 		}
 
-		language := NewLanguage(info.Name())
+		language := NewLanguage(info.Name(), &e.letters)
 
 		if UseCache {
-			language.Profile = VecBinomialFromFile("storage/computed_" + info.Name() + ".ptrn")
+			language.Profile = VecBinomialFromFile("storage/computed_" + info.Name())
 		} else {
 			wg.Add(1)
 			go func() {
@@ -75,7 +76,8 @@ func (e *example) encodeLanguages() {
 				}
 				text := string(b)
 
-				language.Profile = encodeLanguage(&e.letters, &text)
+                language.encodeLanguage(&text)
+				writeToCache("storage/computed_" + language.Name, language.Profile)
 			}()
 		}
 
@@ -96,8 +98,8 @@ func (e *example) encodeTest() {
 	}
 	text := string(b)
 
-	e.test = NewLanguage("test")
-    e.test.Profile = encodeLanguage(&e.letters, &text)
+	e.test = NewLanguage("test", &e.letters)
+	e.test.encodeLanguage(&text)
 }
 
 func (e *example) compare() {
@@ -105,6 +107,8 @@ func (e *example) compare() {
 	var bestMatch *Language
     for _, language := range e.languages {
     	angle := hyperdimensional.Cosine(e.test.Profile, language.Profile)
+		fmt.Println(language.Name + ": ", angle)
+
         if angle > smallestAngle {
         	smallestAngle = angle
         	bestMatch = language

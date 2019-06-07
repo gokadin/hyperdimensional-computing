@@ -2,45 +2,77 @@ package text
 
 import (
 	"github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
+	"sync"
 )
 
 const GramFactor = 3
 
-func encodeLanguage(letters *Letters, text *string) *hyperdimensional.VecBinomial {
-	var profile *hyperdimensional.VecBinomial
+type Encoder struct {
+	letters *Letters
+	profile *hyperdimensional.VecBinomial
+	mutex *sync.Mutex
+}
+
+func NewEncoder(letters *Letters) *Encoder {
+	return &Encoder{
+		letters: letters,
+		mutex: new(sync.Mutex),
+	}
+}
+
+func (e *Encoder) encodeLanguage(text *string) *hyperdimensional.VecBinomial {
+
+	gramChannel := make(chan *[]uint8)
+	wg := new(sync.WaitGroup)
+
+	for i := 0; i < 10; i++ {
+        wg.Add(1)
+        go e.encodeGram(gramChannel, wg)
+	}
+
 	indices := make([]uint8, GramFactor)
 	for i := 0; i < len(*text) - GramFactor; i+= GramFactor {
         for index := range indices {
             indices[index] = (*text)[i + index]
 		}
 
-		if profile == nil {
-            profile = encodeGram(&indices, letters)
-		} else {
-            profile.Add(encodeGram(&indices, letters))
-		}
+        gramChannel <- &indices
 	}
 
-	profile.ToBinomial()
-	return profile
+	close(gramChannel)
+	wg.Wait()
+
+	e.profile.ToBinomial()
+	return e.profile
 }
 
-func encodeGram(textIndices *[]uint8, letters *Letters) *hyperdimensional.VecBinomial {
-	var gram *hyperdimensional.VecBinomial
-    for i, textIndex := range *textIndices {
-    	if i == 0 {
-			gram = hyperdimensional.Rotate(letters[(*textIndices)[0]], len(*textIndices) - 1)
-    		continue
+func (e *Encoder) encodeGram(textIndicesChannel chan *[]uint8, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	for textIndices := range textIndicesChannel {
+		var gram *hyperdimensional.VecBinomial
+		for i, textIndex := range *textIndices {
+			if i == 0 {
+				gram = hyperdimensional.Rotate(e.letters[(*textIndices)[0]], len(*textIndices) - 1)
+				continue
+			}
+
+			next := e.letters[textIndex]
+			if len(*textIndices) - i - 1 == 0 {
+				next = hyperdimensional.Rotate(next, len(*textIndices) - i - 1)
+			}
+
+			gram = hyperdimensional.Multiply(gram, next)
 		}
 
-    	var next *hyperdimensional.VecBinomial
-    	if len(*textIndices) - i - 1 == 0 {
-			next = hyperdimensional.Rotate(letters[textIndex], len(*textIndices) - i - 1)
+		e.mutex.Lock()
+
+		if e.profile == nil {
+			e.profile = gram
 		} else {
-            next = letters[textIndex]
+			e.profile.Add(gram)
 		}
-		gram = hyperdimensional.Multiply(gram, next)
+
+		e.mutex.Unlock()
 	}
-	
-	return  gram
 }

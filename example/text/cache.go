@@ -30,7 +30,7 @@ func VecBinomialFromFile(filename string) *hyperdimensional.VecBinomial {
 	return vec
 }
 
-func writePattern(filename string, vec *hyperdimensional.VecBinomial) {
+func writeToCache(filename string, vec *hyperdimensional.VecBinomial) {
 	f, err := os.Create(filename)
 	if err != nil {
 		panic(err)
