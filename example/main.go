@@ -8,5 +8,7 @@ import (
 
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
-	text.Run()
+
+	example := text.NewExample()
+	example.Run()
 }
