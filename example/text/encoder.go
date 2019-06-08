@@ -1,8 +1,6 @@
 package text
 
 import (
-	"bufio"
-	"fmt"
 	"github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
 	"sync"
 )
@@ -24,7 +22,7 @@ func NewEncoder(letters *Letters) *Encoder {
 	}
 }
 
-func (e *Encoder) encodeLanguage(text *string, writer *bufio.Writer) *hyperdimensional.VecBinomial {
+func (e *Encoder) encodeLanguage(text *string) *hyperdimensional.VecBinomial {
 	e.profile = nil
 	e.counter = 0
 	gramChannel := make(chan *[]uint8)
@@ -43,10 +41,6 @@ func (e *Encoder) encodeLanguage(text *string, writer *bufio.Writer) *hyperdimen
 		}
 
         gramChannel <- &indices
-
-		if writer != nil {
-			fmt.Fprintf(writer, "\rProgress: %d/%d", e.counter, e.totalCount)
-		}
 	}
 
 	close(gramChannel)
