@@ -34,10 +34,14 @@ func (e *Encoder) encodeLanguage(text *string) *hyperdimensional.VecBinomial {
 	}
 	
 	indices := make([]uint8, GramFactor)
-	e.totalCount = (len(*text) - GramFactor) / GramFactor
-	for i := 0; i < len(*text) - GramFactor; i+= GramFactor {
+	e.totalCount = len(*text) - GramFactor
+    for textIndex := range *text {
+    	if textIndex > len(*text) - GramFactor {
+    		break
+		}
+
         for index := range indices {
-            indices[index] = (*text)[i + index]
+            indices[index] = (*text)[textIndex + index]
 		}
 
         gramChannel <- &indices
@@ -57,12 +61,12 @@ func (e *Encoder) encodeGram(textIndicesChannel chan *[]uint8, wg *sync.WaitGrou
 		var gram *hyperdimensional.VecBinomial
 		for i, textIndex := range *textIndices {
 			if i == 0 {
-				gram = hyperdimensional.Rotate(e.letters[(*textIndices)[0]], len(*textIndices) - 1)
+				gram = hyperdimensional.Rotate(e.letters[textIndex], len(*textIndices) - 1)
 				continue
 			}
 
 			next := e.letters[textIndex]
-			if len(*textIndices) - i - 1 == 0 {
+			if len(*textIndices) - i - 1 != 0 {
 				next = hyperdimensional.Rotate(next, len(*textIndices) - i - 1)
 			}
 

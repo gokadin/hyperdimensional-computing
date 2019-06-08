@@ -45,7 +45,15 @@ func Test_Rotate_isCorrectWhenCountIsMoreThanOne(t *testing.T) {
 		t.Fatalf("Size does not match.")
 	}
 
-	if rotated.At(0) != vector.At(3) || rotated.At(rotated.Size() - 3) != vector.At(0) {
+	if rotated.At(0) != vector.At(3) || rotated.At(7) != vector.At(0) {
+		t.Fatalf("Rotation failed.")
+	}
+
+	if rotated.At(1) != vector.At(4) || rotated.At(8) != vector.At(1) {
+		t.Fatalf("Rotation failed.")
+	}
+
+	if rotated.At(2) != vector.At(5) || rotated.At(9) != vector.At(2) {
 		t.Fatalf("Rotation failed.")
 	}
 }
