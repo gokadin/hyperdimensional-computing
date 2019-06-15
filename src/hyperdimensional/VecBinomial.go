@@ -122,3 +122,16 @@ func (v *VecBinomial) At(index int) float64 {
 func (v *VecBinomial) Set(index int, value float64) {
 	v.values[index] = value
 }
+
+func (v *VecBinomial) ScaleUp(size int) {
+	scaled := make([]float64, size)
+	scaleFactor := size / len(v.values)
+
+	for i, value := range v.values {
+		for j := 0; j < scaleFactor; j++ {
+			scaled[i * scaleFactor + j] = value
+		}
+	}
+
+	v.values = scaled
+}

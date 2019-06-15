@@ -138,3 +138,27 @@ func Test_Add_isCorrect(t *testing.T) {
 		t.Fatalf("Addition is incorrect.")
 	}
 }
+
+func Test_Scale_isCorrect(t *testing.T) {
+	// Arrange
+	vec := hyperdimensional.NewEmptyVecBinomial(2)
+	vec.Set(0, 1)
+	vec.Set(1, -1)
+
+	// Act
+	vec.ScaleUp(10)
+
+	// Assert
+	if vec.Size() != 10 {
+		t.Fatalf("Scaled vector size is incorrect.")
+	}
+
+    for i, value := range *vec.Values() {
+        if i < 5 && value != 1 {
+            t.Fatalf("Invalid scaled value.")
+		}
+        if i >= 5 && value != -1 {
+			t.Fatalf("Invalid scaled value.")
+		}
+	}
+}
