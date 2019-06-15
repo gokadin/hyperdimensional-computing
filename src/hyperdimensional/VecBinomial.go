@@ -27,14 +27,14 @@ func NewVecBinomial(size int) *VecBinomial {
     return vec
 }
 
-func newEmpty(size int) *VecBinomial {
+func NewEmptyVecBinomial(size int) *VecBinomial {
 	return &VecBinomial{
 		values: make([]float64, size),
 	}
 }
 
 func Rotate(v *VecBinomial, count int) *VecBinomial {
-	result := newEmpty(v.Size())
+	result := NewEmptyVecBinomial(v.Size())
 
 	for i := 0; i < result.Size(); i++ {
 		if i >= result.Size() - count {
@@ -49,7 +49,7 @@ func Rotate(v *VecBinomial, count int) *VecBinomial {
 }
 
 func Multiply(v1, v2 *VecBinomial) *VecBinomial {
-	result := newEmpty(v1.Size())
+	result := NewEmptyVecBinomial(v1.Size())
 
     for i := 0; i < result.Size(); i++ {
 		result.values[i] = v1.values[i] * v2.values[i]
