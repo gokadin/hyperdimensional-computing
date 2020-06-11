@@ -9,7 +9,6 @@ import (
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	
 	rand.Seed(time.Now().UTC().UnixNano())
 	
 	example := text.NewExample()

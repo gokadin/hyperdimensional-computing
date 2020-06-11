@@ -3,7 +3,7 @@ package text
 import (
 	"bufio"
 	"fmt"
-	"github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
+	"github.com/gokadin/hyperdimensional-computing/hyperdimensional"
 	"os"
 	"strconv"
 )
@@ -11,19 +11,19 @@ import (
 func VecBinomialFromFile(filename string) *hyperdimensional.VecBinomial {
 	file, err := os.Open(filename)
 	if err != nil {
-		fmt.Println("Could not find file " + filename, err.Error())
+		fmt.Println("could not open file " + filename, err.Error())
 	}
 	defer file.Close()
 
-	vec := hyperdimensional.NewVecBinomial(10000)
+	vec := hyperdimensional.NewRandBinomial()
 	scanner := bufio.NewScanner(file)
 	i := 0
 	for scanner.Scan() {
-		parsed, err := strconv.ParseFloat(scanner.Text(), 64)
+		parsed, err := strconv.ParseFloat(scanner.Text(), 32)
 		if err != nil {
 			panic(err)
 		}
-		vec.Set(i, parsed)
+		vec.Set(i, float32(parsed))
 		i++
 	}
 
@@ -35,13 +35,11 @@ func writeToCache(filename string, vec *hyperdimensional.VecBinomial) {
 	if err != nil {
 		panic(err)
 	}
-
 	defer f.Close()
 
 	w := bufio.NewWriter(f)
-	for _, value := range *vec.Values() {
-		w.WriteString(strconv.FormatFloat(value, 'f', 0, 64) + "\n")
+	for _, value := range vec.Values() {
+		_, _ = w.WriteString(strconv.FormatFloat(float64(value), 'f', 0, 32) + "\n")
 	}
-
 	w.Flush()
 }

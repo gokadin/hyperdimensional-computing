@@ -2,7 +2,7 @@ package text
 
 import (
 	"fmt"
-	"github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
+	"github.com/gokadin/hyperdimensional-computing/hyperdimensional"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -11,16 +11,33 @@ import (
 	"time"
 )
 
-const UseCache = false
+const (
+	UseCache = true
+	numLetters = 127
+	storageDir = "storage"
+	lettersDir = "letters"
+	letterFilePrefix = "computed_letter_"
+	languageFilePrefix = "computed_"
+	testFilePath = "data/testing/test_file"
+)
 
 type example struct {
-	letters Letters
+	letters []*hyperdimensional.VecBinomial
 	languages []*Language
 	test *Language
 }
 
 func NewExample() *example {
-	return &example{}
+	if !fileExists(storageDir) {
+		_ = os.Mkdir(storageDir, 0755)
+	}
+	if !fileExists(fmt.Sprintf("%s/%s", storageDir, lettersDir)) {
+		_ = os.Mkdir(fmt.Sprintf("%s/%s", storageDir, lettersDir), 0755)
+	}
+
+	return &example{
+		letters: make([]*hyperdimensional.VecBinomial, numLetters),
+	}
 }
 
 func (e *example) Run() {
@@ -37,17 +54,20 @@ func (e *example) Run() {
 }
 
 func (e *example) encodeLetters() {
-	e.letters = NewLetters()
+	for i := range e.letters {
+		letterFilePath := fmt.Sprintf("%s/%s/%s%s", storageDir, lettersDir, letterFilePrefix, strconv.Itoa(i))
+		if UseCache {
+			if fileExists(letterFilePath) {
+				e.letters[i] = VecBinomialFromFile(letterFilePath)
+				continue
+			}
 
-	if UseCache {
-		for i := range e.letters {
-			e.letters[i] = VecBinomialFromFile("storage/letters/computed_letter_" + strconv.Itoa(i))
+			e.letters[i] = hyperdimensional.NewRandBinomial()
+			writeToCache(letterFilePath, e.letters[i])
+			continue
 		}
-	} else {
-		for i := range e.letters {
-			e.letters[i] = hyperdimensional.NewVecBinomial(10000)
-			writeToCache("storage/letters/computed_letter_" + strconv.Itoa(i), e.letters[i])
-		}
+
+		e.letters[i] = hyperdimensional.NewRandBinomial()
 	}
 }
 
@@ -61,25 +81,32 @@ func (e *example) encodeLanguages() {
 			return nil
 		}
 
-		language := NewLanguage(info.Name(), &e.letters)
+		language := NewLanguage(info.Name(), e.letters)
+		languageFilePath := fmt.Sprintf("%s/%s%s", storageDir, languageFilePrefix, language.Name)
 
 		if UseCache {
-			language.Profile = VecBinomialFromFile("storage/computed_" + info.Name())
-		} else {
-			wg.Add(1)
-			go func() {
-				defer wg.Done()
-
-				b, err := ioutil.ReadFile(path)
-				if err != nil {
-					panic(err)
-				}
-				text := string(b)
-
-                language.encodeLanguage(&text)
-				writeToCache("storage/computed_" + language.Name, language.Profile)
-			}()
+			if fileExists(languageFilePath) {
+				language.Profile = VecBinomialFromFile(languageFilePath)
+				e.languages = append(e.languages, language)
+				return nil
+			}
 		}
+
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+
+			b, err := ioutil.ReadFile(path)
+			if err != nil {
+				panic(err)
+			}
+			text := string(b)
+
+			language.encodeLanguage(&text)
+			if UseCache {
+				writeToCache(languageFilePath, language.Profile)
+			}
+		}()
 
 		e.languages = append(e.languages, language)
 		return  nil
@@ -92,18 +119,18 @@ func (e *example) encodeLanguages() {
 }
 
 func (e *example) encodeTest() {
-	b, err := ioutil.ReadFile("data/testing/test1")
+	b, err := ioutil.ReadFile(testFilePath)
 	if err != nil {
 		panic(err)
 	}
 	text := string(b)
 
-	e.test = NewLanguage("test", &e.letters)
+	e.test = NewLanguage("test", e.letters)
 	e.test.encodeLanguage(&text)
 }
 
 func (e *example) compare() {
-	smallestAngle := -1.0
+	var smallestAngle float32 = -1
 	var bestMatch *Language
     for _, language := range e.languages {
     	angle := hyperdimensional.Cosine(e.test.Profile, language.Profile)
@@ -116,8 +143,13 @@ func (e *example) compare() {
 	}
 
     if bestMatch == nil {
-    	panic("Could not find any match.")
+    	panic("could not find any match.")
 	}
 
-    fmt.Println("Language is " + bestMatch.Name)
+    fmt.Println("language is " + bestMatch.Name)
+}
+
+func fileExists(path string) bool {
+	_, err := os.Stat(path)
+	return !os.IsNotExist(err)
 }

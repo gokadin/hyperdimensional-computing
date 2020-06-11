@@ -1,17 +1,17 @@
 package text
 
 import (
-    "github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
+    "github.com/gokadin/hyperdimensional-computing/hyperdimensional"
 )
 
 type Language struct {
     Name string
     Profile *hyperdimensional.VecBinomial
-    letters *Letters
+    letters []*hyperdimensional.VecBinomial
     encoder *Encoder
 }
 
-func NewLanguage(name string, letters *Letters) *Language {
+func NewLanguage(name string, letters []*hyperdimensional.VecBinomial) *Language {
     return &Language{
         Name: name,
         letters: letters,

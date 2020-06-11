@@ -1,19 +1,18 @@
 package hyperdimensional
 
 import (
-	"fmt"
 	"math"
 	"math/rand"
 )
 
+const vectorSize = 10000
+
 type VecBinomial struct {
-    values []float64
+    values []float32
 }
 
-func NewVecBinomial(size int) *VecBinomial {
-	vec := &VecBinomial{
-		values: make([]float64, size),
-	}
+func NewRandBinomial() *VecBinomial {
+	vec := NewEmptyBinomial()
 
     for index := range vec.values {
 		random := rand.Intn(2)
@@ -27,15 +26,14 @@ func NewVecBinomial(size int) *VecBinomial {
     return vec
 }
 
-func NewEmptyVecBinomial(size int) *VecBinomial {
+func NewEmptyBinomial() *VecBinomial {
 	return &VecBinomial{
-		values: make([]float64, size),
+		values: make([]float32, vectorSize),
 	}
 }
 
 func Rotate(v *VecBinomial, count int) *VecBinomial {
-	result := NewEmptyVecBinomial(v.Size())
-
+	result := NewEmptyBinomial()
 	for i := 0; i < result.Size(); i++ {
 		if i >= result.Size() - count {
 			result.values[i] = v.values[count - (result.Size() - i)]
@@ -49,8 +47,7 @@ func Rotate(v *VecBinomial, count int) *VecBinomial {
 }
 
 func Multiply(v1, v2 *VecBinomial) *VecBinomial {
-	result := NewEmptyVecBinomial(v1.Size())
-
+	result := NewEmptyBinomial()
     for i := 0; i < result.Size(); i++ {
 		result.values[i] = v1.values[i] * v2.values[i]
 	}
@@ -74,7 +71,7 @@ func (v *VecBinomial) ToBinomial() {
 	}
 }
 
-func Cosine(v1, v2 *VecBinomial) float64 {
+func Cosine(v1, v2 *VecBinomial) float32 {
     dot := Dot(v1, v2)
 
     magnitudeProduct := v1.Magnitude() * v2.Magnitude()
@@ -82,8 +79,8 @@ func Cosine(v1, v2 *VecBinomial) float64 {
     return dot / magnitudeProduct
 }
 
-func Dot(v1, v2 *VecBinomial) float64 {
-	result := 0.0
+func Dot(v1, v2 *VecBinomial) float32 {
+	var result float32
     for i := 0; i < v1.Size(); i++ {
         result += v1.values[i] * v2.values[i]
 	}
@@ -91,40 +88,33 @@ func Dot(v1, v2 *VecBinomial) float64 {
 	return result
 }
 
-func (v *VecBinomial) Magnitude() float64 {
-	result := 0.0
-
+func (v *VecBinomial) Magnitude() float32 {
+	var result float32
 	for _, value := range v.values {
         result += value * value
 	}
 
-	return math.Sqrt(result)
+	return float32(math.Sqrt(float64(result)))
 }
 
-func (v *VecBinomial) Print() {
-	for _, value := range v.values {
-		fmt.Println(value)
-	}
-}
-
-func (v *VecBinomial) Values() *[]float64 {
-	return &v.values
+func (v *VecBinomial) Values() []float32 {
+	return v.values
 }
 
 func (v *VecBinomial) Size() int {
 	return len(v.values)
 }
 
-func (v *VecBinomial) At(index int) float64 {
+func (v *VecBinomial) At(index int) float32 {
 	return v.values[index]
 }
 
-func (v *VecBinomial) Set(index int, value float64) {
+func (v *VecBinomial) Set(index int, value float32) {
 	v.values[index] = value
 }
 
 func (v *VecBinomial) ScaleUp(size int) {
-	scaled := make([]float64, size)
+	scaled := make([]float32, size)
 	scaleFactor := size / len(v.values)
 
 	for i, value := range v.values {

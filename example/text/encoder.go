@@ -1,21 +1,21 @@
 package text
 
 import (
-	"github.com/gokadin/hyperdimensional-computing/src/hyperdimensional"
+	"github.com/gokadin/hyperdimensional-computing/hyperdimensional"
 	"sync"
 )
 
 const GramFactor = 3
 
 type Encoder struct {
-	letters *Letters
+	letters []*hyperdimensional.VecBinomial
 	profile *hyperdimensional.VecBinomial
 	mutex *sync.Mutex
 	totalCount int
 	counter int
 }
 
-func NewEncoder(letters *Letters) *Encoder {
+func NewEncoder(letters []*hyperdimensional.VecBinomial) *Encoder {
 	return &Encoder{
 		letters: letters,
 		mutex: new(sync.Mutex),
