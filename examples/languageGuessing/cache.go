@@ -1,4 +1,4 @@
-package text
+package languageGuessing
 
 import (
 	"bufio"
@@ -8,14 +8,14 @@ import (
 	"strconv"
 )
 
-func VecBinomialFromFile(filename string) *hyperdimensional.VecBinomial {
+func VecBipolarFromFile(filename string) *hyperdimensional.HdVec {
 	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("could not open file " + filename, err.Error())
 	}
 	defer file.Close()
 
-	vec := hyperdimensional.NewRandBinomial()
+	vec := hyperdimensional.NewRandBipolar()
 	scanner := bufio.NewScanner(file)
 	i := 0
 	for scanner.Scan() {
@@ -30,7 +30,7 @@ func VecBinomialFromFile(filename string) *hyperdimensional.VecBinomial {
 	return vec
 }
 
-func writeToCache(filename string, vec *hyperdimensional.VecBinomial) {
+func writeToCache(filename string, vec *hyperdimensional.HdVec) {
 	f, err := os.Create(filename)
 	if err != nil {
 		panic(err)
