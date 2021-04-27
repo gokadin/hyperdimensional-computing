@@ -11,17 +11,18 @@ import (
 )
 
 const (
-	UseCache = true
-	numLetters = 127
-	storageDir = "storage"
-	lettersDir = "letters"
-	letterFilePrefix = "computed_letter_"
+	UseCache           = true
+	numLetters         = 127
+	storageDir         = "storage"
+	lettersDir         = "letters"
+	letterFilePrefix   = "computed_letter_"
 	languageFilePrefix = "computed_"
-	testFilePath = "data/testing/test_file"
+	testFilePath       = "data/testing/test_file"
+	gramFactor         = 3
 )
 
 type example struct {
-	letters   map[string]*hyperdimensional.HdVec
+	letters   map[int]*hyperdimensional.HdVec
 	languages map[string]*hyperdimensional.HdVec
 	test      *hyperdimensional.HdVec
 }
@@ -34,7 +35,7 @@ func NewExample() *example {
 		_ = os.Mkdir(fmt.Sprintf("%s/%s", storageDir, lettersDir), 0755)
 	}
 
-	letters := make(map[string]*hyperdimensional.HdVec, numLetters)
+	letters := make(map[int]*hyperdimensional.HdVec, numLetters)
 	return &example{
 		letters: letters,
 	}
@@ -62,10 +63,10 @@ func (e *example) Run() {
 	fmt.Println()
 	fmt.Println("Asking (what letter is most commonly used after the set: \"th\"?")
 
-	th := hyperdimensional.Multiply(hyperdimensional.Rotate(e.letters["t"], 2), hyperdimensional.Rotate(e.letters["h"], 1))
+	th := hyperdimensional.Rotate(e.letters[116], 2).Multiply(hyperdimensional.Rotate(e.letters[104], 1))
 
-	answerVec := hyperdimensional.Multiply(th, e.languages["en"])
-	answer := hyperdimensional.FindClosestCosineInMap(answerVec, e.letters)
+	answerVec := th.Multiply(e.languages["en"])
+	answer := string(hyperdimensional.FindClosestCosineInMapInt(answerVec, e.letters))
 
 	fmt.Println(fmt.Sprintf("Answer is %s", answer))
 }
@@ -73,20 +74,19 @@ func (e *example) Run() {
 func (e *example) encodeLetters() {
 	for i := 0; i < 128; i++ {
 		fileSuffix := strconv.Itoa(i)
-		name := string(i)
 		letterFilePath := fmt.Sprintf("%s/%s/%s%s", storageDir, lettersDir, letterFilePrefix, fileSuffix)
 		if UseCache {
 			if fileExists(letterFilePath) {
-				e.letters[name] = VecBipolarFromFile(letterFilePath)
+				e.letters[i] = VecFromFile(letterFilePath)
 				continue
 			}
 
-			e.letters[name] = hyperdimensional.NewRandBipolar()
-			writeToCache(letterFilePath, e.letters[name])
+			e.letters[i] = hyperdimensional.Rand()
+			writeToCache(letterFilePath, e.letters[i])
 			continue
 		}
 
-		e.letters[name] = hyperdimensional.NewRandBipolar()
+		e.letters[i] = hyperdimensional.Rand()
 	}
 }
 
@@ -101,7 +101,7 @@ func (e *example) encodeLanguages() {
 
 		if UseCache {
 			if fileExists(languageFilePath) {
-				e.languages[info.Name()] = VecBipolarFromFile(languageFilePath)
+				e.languages[info.Name()] = VecFromFile(languageFilePath)
 				return nil
 			}
 		}
@@ -112,13 +112,14 @@ func (e *example) encodeLanguages() {
 		}
 		text := string(b)
 
-		languageVec := encodeLanguage(text, info.Name(), e.letters)
+		encoder := hyperdimensional.NewEncoder(e.letters)
+		languageVec := encoder.EncodeVec(text, gramFactor)
 		e.languages[info.Name()] = languageVec
 		if UseCache {
 			writeToCache(languageFilePath, languageVec)
 		}
 
-		return  nil
+		return nil
 	})
 	if err != nil {
 		panic(err)
@@ -132,7 +133,8 @@ func (e *example) encodeTest() {
 	}
 	text := string(b)
 
-	e.test = encodeLanguage(text, "test", e.letters)
+	encoder := hyperdimensional.NewEncoder(e.letters)
+	e.test = encoder.EncodeVec(text, gramFactor)
 }
 
 func (e *example) compare() {

@@ -1,121 +1,217 @@
 package hyperdimensional
 
 import (
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 	"math"
+	"math/rand"
 	"testing"
+	"time"
 )
 
-func Test_default_size(t *testing.T) {
-    vector := NewRandBipolar()
-
-    assert.Equal(t, vectorDefaultSize, vector.Size())
+type HDVecTestSuite struct {
+	suite.Suite
 }
 
-func Test_Rotate(t *testing.T) {
-	vector := NewRandBipolarOfSize(10)
+func TestHDVecTestSuite(t *testing.T) {
+	rand.Seed(time.Now().UTC().UnixNano())
+	suite.Run(t, new(HDVecTestSuite))
+}
+
+func (suite *HDVecTestSuite) Test_default_size() {
+	vector := Rand()
+
+	suite.Equal(VectorDefaultSize, vector.Size())
+}
+
+func (suite *HDVecTestSuite) Test_Rand_InitializesWithFalseMagnitudeCacheValidity() {
+	vector := Rand()
+
+	suite.False(vector.isMagnitudeCacheValid)
+}
+
+func (suite *HDVecTestSuite) Test_RandOfSize_InitializesWithFalseMagnitudeCacheValidity() {
+	vector := RandOfSize(100)
+
+	suite.False(vector.isMagnitudeCacheValid)
+}
+
+func (suite *HDVecTestSuite) Test_Ones_InitializesWithFalseMagnitudeCacheValidity() {
+	vector := Ones()
+
+	suite.False(vector.isMagnitudeCacheValid)
+}
+
+func (suite *HDVecTestSuite) Test_NewEmptyOfSize_InitializesWithFalseMagnitudeCacheValidity() {
+	vector := NewEmptyOfSize(100)
+
+	suite.False(vector.isMagnitudeCacheValid)
+}
+
+func (suite *HDVecTestSuite) Test_FromSlice_InitializesWithFalseMagnitudeCacheValidity() {
+	vector := FromSlice([]uint8{0, 1, 0, 1, 1})
+
+	suite.False(vector.isMagnitudeCacheValid)
+}
+
+func (suite *HDVecTestSuite) Test_Rotate() {
+	vector := FromSlice([]uint8{1, 2, 3, 4, 5})
+	expected := FromSlice([]uint8{5, 1, 2, 3, 4})
 
 	rotated := Rotate(vector, 1)
 
-	assert.Equal(t, vector.Size(), rotated.Size())
-	assert.Equal(t, vector.At(1), rotated.At(0))
-	assert.Equal(t, vector.At(0), rotated.At(rotated.Size() - 1))
+	suite.Equal(expected.values, rotated.values)
 }
 
-func Test_Rotate_isCorrectWhenCountIsMoreThanOne(t *testing.T) {
-	vector := NewRandBipolarOfSize(10)
+func (suite *HDVecTestSuite) Test_Rotate_ofZero() {
+	vector := RandOfSize(3)
+
+	rotated := Rotate(vector, 0)
+
+	suite.True(Equal(vector, rotated))
+}
+
+func (suite *HDVecTestSuite) Test_Rotate_isCorrectWhenCountIsMoreThanOne() {
+	vector := FromSlice([]uint8{1, 2, 3, 4, 5})
+	expected := FromSlice([]uint8{3, 4, 5, 1, 2})
 
 	rotated := Rotate(vector, 3)
 
-	assert.Equal(t, vector.Size(), rotated.Size())
-	assert.Equal(t, vector.At(3), rotated.At(0))
-	assert.Equal(t, vector.At(0), rotated.At(7))
-	assert.Equal(t, vector.At(4), rotated.At(1))
-	assert.Equal(t, vector.At(1), rotated.At(8))
-	assert.Equal(t, vector.At(5), rotated.At(2))
-	assert.Equal(t, vector.At(2), rotated.At(9))
+	suite.Equal(expected.values, rotated.values)
 }
 
-func Test_Multiply(t *testing.T) {
-	vec1 := NewRandBipolarOfSize(10)
-	vec2 := NewRandBipolarOfSize(10)
+func (suite *HDVecTestSuite) Test_Multiply() {
+	vec1 := FromSlice([]uint8{1, 1, 0, 0})
+	vec2 := FromSlice([]uint8{1, 0, 1, 0})
 
-	multiplied := Multiply(vec1, vec2)
+	vec1.Multiply(vec2)
 
-	assert.Equal(t, vec1.Size(), multiplied.Size())
-	for index, value := range multiplied.Values() {
-		assert.Equal(t, vec1.At(index) * vec2.At(index), value)
-	}
+	suite.Equal(len(vec2.values), vec1.Size())
+	suite.Equal(uint8(0), vec1.At(0))
+	suite.Equal(uint8(1), vec1.At(1))
+	suite.Equal(uint8(1), vec1.At(2))
+	suite.Equal(uint8(0), vec1.At(3))
 }
 
-func Test_Dot(t *testing.T) {
-	vec1 := NewRandBipolarOfSize(3)
-	vec2 := NewRandBipolarOfSize(3)
+func (suite *HDVecTestSuite) Test_Multiply_invalidatesMagnitudeCache() {
+	vec1 := FromSlice([]uint8{1, 1, 0, 0})
+	vec1.isMagnitudeCacheValid = true
+	vec2 := FromSlice([]uint8{1, 0, 1, 0})
+
+	vec1.Multiply(vec2)
+
+	suite.False(vec1.isMagnitudeCacheValid)
+}
+
+func (suite *HDVecTestSuite) Test_Dot() {
+	vec1 := RandOfSize(3)
+	vec2 := RandOfSize(3)
 
 	dot := Dot(vec1, vec2)
 
-	expected := vec1.At(0) * vec2.At(0) + vec1.At(1) * vec2.At(1) + vec1.At(2) * vec2.At(2)
-	assert.Equal(t, expected, dot)
+	expected := int(vec1.At(0)*vec2.At(0) + vec1.At(1)*vec2.At(1) + vec1.At(2)*vec2.At(2))
+	suite.Equal(expected, dot)
 }
 
-func Test_Magnitude(t *testing.T) {
-	vec := NewRandBipolarOfSize(3)
+func (suite *HDVecTestSuite) Test_Magnitude() {
+	vec := RandOfSize(3)
 
-    result := vec.Magnitude()
+	result := vec.Magnitude()
 
-	expected := float32(math.Sqrt(float64(vec.At(0) * vec.At(0) + vec.At(1) * vec.At(1) + vec.At(2) * vec.At(2))))
-	assert.Equal(t, expected, result)
+	expected := float32(math.Sqrt(float64(vec.At(0)*vec.At(0) + vec.At(1)*vec.At(1) + vec.At(2)*vec.At(2))))
+	suite.Equal(expected, result)
 }
 
-func Test_Cosine(t *testing.T) {
-	vec1 := NewRandBipolarOfSize(3)
-	vec2 := NewRandBipolarOfSize(3)
+func (suite *HDVecTestSuite) Test_Cosine() {
+	vec1 := RandOfSize(100)
+	vec2 := RandOfSize(100)
 
 	result := Cosine(vec1, vec2)
 
-	expected := Dot(vec1, vec2) / (vec1.Magnitude() * vec2.Magnitude())
-	assert.Equal(t, expected, result)
-}
-
-func Test_Add(t *testing.T) {
-	vec1 := NewRandBipolarOfSize(3)
-	vec2 := NewRandBipolarOfSize(3)
-	expectedValue1 := vec1.At(0) + vec2.At(0)
-	expectedValue2 := vec1.At(1) + vec2.At(1)
-	expectedValue3 := vec1.At(2) + vec2.At(2)
-
-	vec1.Add(vec2)
-
-	assert.Equal(t, vec1.At(0), expectedValue1)
-	assert.Equal(t, vec1.At(1), expectedValue2)
-	assert.Equal(t, vec1.At(2), expectedValue3)
-}
-
-func Test_ToBipolar(t *testing.T) {
-	vec := NewEmptyBipolarOfSize(3)
-	vec.Set(0, 2)
-	vec.Set(1, -3)
-	vec.Set(2, 1)
-
-	vec.ToBipolar()
-
-	assert.Equal(t, []float32{1, -1, 1}, vec.Values())
-}
-
-func Test_Scale(t *testing.T) {
-	vec := NewEmptyBipolarOfSize(2)
-	vec.Set(0, 1)
-	vec.Set(1, -1)
-
-	vec.ScaleUp(10)
-
-	assert.Equal(t, 10, vec.Size())
-    for i, value := range vec.Values() {
-        if i < 5 && value != 1 {
-            t.Fatalf("Invalid scaled value.")
-		}
-        if i >= 5 && value != -1 {
-			t.Fatalf("Invalid scaled value.")
-		}
+	dot := Dot(vec1, vec2)
+	var expected float32
+	if dot != 0 {
+		expected = float32(dot) / (vec1.Magnitude() * vec2.Magnitude())
 	}
+	suite.Equal(expected, result)
+}
+
+func (suite *HDVecTestSuite) Test_Add_oddVectors() {
+	vec1 := FromSlice([]uint8{1, 1, 1, 0})
+	vec2 := FromSlice([]uint8{1, 1, 0, 0})
+	vec3 := FromSlice([]uint8{1, 0, 0, 0})
+
+	result := Add(vec1, vec2, vec3)
+
+	suite.Equal(4, result.Size())
+	suite.Equal(uint8(1), result.At(0))
+	suite.Equal(uint8(1), result.At(1))
+	suite.Equal(uint8(0), result.At(2))
+	suite.Equal(uint8(0), result.At(3))
+}
+
+func (suite *HDVecTestSuite) Test_Add_oddMultipleVectors() {
+	vec1 := FromSlice([]uint8{1, 1, 1, 1, 1, 0})
+	vec2 := FromSlice([]uint8{1, 1, 1, 1, 0, 0})
+	vec3 := FromSlice([]uint8{1, 1, 1, 0, 0, 0})
+	vec4 := FromSlice([]uint8{1, 1, 0, 0, 0, 0})
+	vec5 := FromSlice([]uint8{1, 0, 0, 0, 0, 0})
+
+	result := Add(vec1, vec2, vec3, vec4, vec5)
+
+	suite.Equal(6, result.Size())
+	suite.Equal(uint8(1), result.At(0))
+	suite.Equal(uint8(1), result.At(1))
+	suite.Equal(uint8(1), result.At(2))
+	suite.Equal(uint8(0), result.At(3))
+	suite.Equal(uint8(0), result.At(4))
+	suite.Equal(uint8(0), result.At(5))
+}
+
+func (suite *HDVecTestSuite) Test_Add_evenVectors() {
+	vec1 := FromSlice([]uint8{1, 1, 0, 0})
+	vec2 := FromSlice([]uint8{1, 0, 1, 0})
+
+	result := Add(vec1, vec2)
+
+	suite.Equal(4, result.Size())
+	suite.Equal(uint8(1), result.At(0))
+	suite.Equal(uint8(0), result.At(3))
+	// cannot verify indices 1 and 2 since randomness is involved
+}
+
+func (suite *HDVecTestSuite) TestEqual_whenEqual() {
+	a := NewEmptyOfSize(3)
+	a.Set(0, 1)
+	a.Set(1, 2)
+	a.Set(2, 3)
+
+	b := NewEmptyOfSize(3)
+	b.Set(0, 1)
+	b.Set(1, 2)
+	b.Set(2, 3)
+
+	suite.True(Equal(a, b))
+}
+
+func (suite *HDVecTestSuite) TestEqual_whenNotEqual() {
+	a := NewEmptyOfSize(3)
+	a.Set(0, 1)
+	a.Set(1, 2)
+	a.Set(2, 3)
+
+	b := NewEmptyOfSize(3)
+	b.Set(0, 1)
+	b.Set(1, 2)
+	b.Set(2, 4)
+
+	suite.False(Equal(a, b))
+}
+
+func (suite *HDVecTestSuite) Test_Set_invalidatesMagnitudeCache() {
+	a := RandOfSize(50)
+	a.isMagnitudeCacheValid = true
+
+	a.Set(0, 1)
+
+	suite.False(a.isMagnitudeCacheValid)
 }

@@ -6,7 +6,6 @@ import (
 )
 
 type example struct {
-
 }
 
 func NewExample() *example {
@@ -18,12 +17,12 @@ func (e *example) Run() {
 
 	// pick random vectors
 	vectors := make(map[string]*hyperdimensional.HdVec)
-	vectors["subject"] = hyperdimensional.NewRandBipolar()
-	vectors["verb"] = hyperdimensional.NewRandBipolar()
-	vectors["object"] = hyperdimensional.NewRandBipolar()
-	vectors["I"] = hyperdimensional.NewRandBipolar()
-	vectors["want"] = hyperdimensional.NewRandBipolar()
-	vectors["run"] = hyperdimensional.NewRandBipolar()
+	vectors["subject"] = hyperdimensional.Rand()
+	vectors["verb"] = hyperdimensional.Rand()
+	vectors["object"] = hyperdimensional.Rand()
+	vectors["I"] = hyperdimensional.Rand()
+	vectors["want"] = hyperdimensional.Rand()
+	vectors["run"] = hyperdimensional.Rand()
 
 	// bind: "I want to run"
 	p := hyperdimensional.Add(

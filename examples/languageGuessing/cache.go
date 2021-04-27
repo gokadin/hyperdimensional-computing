@@ -1,45 +1,26 @@
 package languageGuessing
 
 import (
-	"bufio"
-	"fmt"
+	"encoding/json"
 	"github.com/gokadin/hyperdimensional-computing/hyperdimensional"
-	"os"
-	"strconv"
+	"io/ioutil"
 )
 
-func VecBipolarFromFile(filename string) *hyperdimensional.HdVec {
-	file, err := os.Open(filename)
+func VecFromFile(filename string) *hyperdimensional.HdVec {
+	jsonBytes, err := ioutil.ReadFile(filename)
 	if err != nil {
-		fmt.Println("could not open file " + filename, err.Error())
+		panic(err)
 	}
-	defer file.Close()
-
-	vec := hyperdimensional.NewRandBipolar()
-	scanner := bufio.NewScanner(file)
-	i := 0
-	for scanner.Scan() {
-		parsed, err := strconv.ParseFloat(scanner.Text(), 32)
-		if err != nil {
-			panic(err)
-		}
-		vec.Set(i, float32(parsed))
-		i++
+	var vec *hyperdimensional.HdVec
+	err = json.Unmarshal(jsonBytes, &vec)
+	if err != nil {
+		panic(err)
 	}
 
 	return vec
 }
 
 func writeToCache(filename string, vec *hyperdimensional.HdVec) {
-	f, err := os.Create(filename)
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-
-	w := bufio.NewWriter(f)
-	for _, value := range vec.Values() {
-		_, _ = w.WriteString(strconv.FormatFloat(float64(value), 'f', 0, 32) + "\n")
-	}
-	w.Flush()
+	vecJson, _ := json.Marshal(vec)
+	_ = ioutil.WriteFile(filename, vecJson, 0666)
 }
