@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/gokadin/hyperdimensional-computing/examples/languageGuessing"
-	"github.com/gokadin/hyperdimensional-computing/examples/semanticBinding"
+	"awesomeProject/examples/languageGuessing"
+	"awesomeProject/examples/semanticBinding"
 	"math/rand"
 	"runtime"
 	"time"
@@ -12,8 +12,8 @@ func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	rand.Seed(time.Now().UTC().UnixNano())
 
-	runLanguageGuessingExample()
-	//runSemanticBindingExample()
+	//runLanguageGuessingExample()
+	runSemanticBindingExample()
 }
 
 func runLanguageGuessingExample() {

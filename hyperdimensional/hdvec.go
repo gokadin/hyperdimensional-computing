@@ -52,6 +52,14 @@ func FromSlice(values []uint8) *HdVec {
 	return vec
 }
 
+func FromF32Slice(values []float32) *HdVec {
+	converted := make([]uint8, len(values))
+	for i := 0; i < len(values); i++ {
+		converted[i] = uint8(values[i])
+	}
+	return FromSlice(converted)
+}
+
 func FromHDVec(from *HdVec) *HdVec {
 	vec := NewEmptyOfSize(from.Size())
 	for i := 0; i < from.Size(); i++ {
@@ -158,6 +166,26 @@ func CircularConvolution(v1, v2 *HdVec) *HdVec {
 	return result
 }
 
+//func CircularConvolution2(v1, v2 *HdVec) *HdVec {
+//	if v1.Size() != v2.Size() {
+//		log.Fatalf("vector sizes do not match: %d and %d", v1.Size(), v2.Size())
+//	}
+//
+//	v1fft := fft.FFTReal(v1.ToF64())
+//	v2fft := fft.FFTReal(v2.ToF64())
+//	mul := make([]complex128, v1.Size())
+//	for i := 0; i < v1.Size(); i++ {
+//		mul[i] = v1fft[i] * v2fft[i]
+//	}
+//	c := fft.IFFT(mul)
+//	result := make([]float32, v1.Size())
+//	for i := 0; i < v1.Size(); i++ {
+//		result[i] = float32(real(c[i]))
+//	}
+//	v := FromF32Slice(result)
+//	return v
+//}
+
 /**
 Involution for:
 [ x_0 x_1 x_2 x_3 x_n ... ]
@@ -173,6 +201,14 @@ func (v *HdVec) Involution() *HdVec {
 
 func (v *HdVec) Size() int {
 	return len(v.values)
+}
+
+func (v *HdVec) ToF64() []float64 {
+	result := make([]float64, v.Size())
+	for i := 1; i < v.Size(); i++ {
+		result[i] = float64(v.values[v.Size()-i])
+	}
+	return result
 }
 
 func (v *HdVec) At(index int) uint8 {

@@ -1,8 +1,8 @@
 package languageGuessing
 
 import (
+	"awesomeProject/hyperdimensional"
 	"encoding/json"
-	"github.com/gokadin/hyperdimensional-computing/hyperdimensional"
 	"io/ioutil"
 )
 

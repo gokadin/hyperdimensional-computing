@@ -1,6 +1,7 @@
 package hyperdimensional
 
 import (
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"math"
 	"math/rand"
@@ -177,6 +178,23 @@ func (suite *HDVecTestSuite) Test_Add_evenVectors() {
 	suite.Equal(uint8(1), result.At(0))
 	suite.Equal(uint8(0), result.At(3))
 	// cannot verify indices 1 and 2 since randomness is involved
+}
+
+func TestHdVec_Involution(t *testing.T) {
+	v1 := FromSlice([]uint8{1, 0, 1, 1, 0})
+
+	v1.Involution()
+
+	assert.Equal(t, []uint8{1, 0, 1, 1, 0}, v1.values)
+}
+
+func TestHdVec_CircularConvolution(t *testing.T) {
+	v1 := FromSlice([]uint8{1, 1, 1, 0, 0, 0})
+	v2 := FromSlice([]uint8{0, 1, 0, 0, 1, 1})
+
+	result := CircularConvolution(v1, v2)
+
+	assert.Equal(t, []uint8{2, 2, 1, 1, 1, 2}, result.values)
 }
 
 func (suite *HDVecTestSuite) TestEqual_whenEqual() {

@@ -1,8 +1,8 @@
 package semanticBinding
 
 import (
+	"awesomeProject/hyperdimensional"
 	"fmt"
-	"github.com/gokadin/hyperdimensional-computing/hyperdimensional"
 )
 
 type example struct {
