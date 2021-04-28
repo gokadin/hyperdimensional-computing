@@ -13,6 +13,7 @@ type HdVec struct {
 	values                []uint8
 	magnitudeCache        float32
 	isMagnitudeCacheValid bool
+	tag                   string
 }
 
 func Rand() *HdVec {
@@ -48,7 +49,7 @@ func NewEmptyOfSize(size int) *HdVec {
 }
 
 func FromSlice(values []uint8) *HdVec {
-	vec := &HdVec{values, 0, false}
+	vec := &HdVec{values, 0, false, ""}
 	return vec
 }
 
@@ -68,6 +69,14 @@ func FromHDVec(from *HdVec) *HdVec {
 	vec.magnitudeCache = from.magnitudeCache
 	vec.isMagnitudeCacheValid = from.isMagnitudeCacheValid
 	return vec
+}
+
+func (v *HdVec) Tag() string {
+	return v.tag
+}
+
+func (v *HdVec) SetTag(tag string) {
+	v.tag = tag
 }
 
 /**
