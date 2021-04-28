@@ -78,7 +78,7 @@ func encodeGram(letters map[int]*HdVec, gramLetters []int) *HdVec {
 			next = Rotate(next, len(gramLetters)-i-1)
 		}
 
-		gram.Multiply(next)
+		gram.Xor(next)
 	}
 
 	return gram
@@ -98,7 +98,7 @@ func encodeGram(letters map[int]*HdVec, gramLetters []int) *HdVec {
 //				next = Rotate(next, len(gramLetters)-i-1)
 //			}
 //
-//			gram.Multiply(next)
+//			gram.Xor(next)
 //		}
 //
 //		out <- gram

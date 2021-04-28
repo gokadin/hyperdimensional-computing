@@ -13,7 +13,7 @@ func NewExample() *example {
 }
 
 func (e *example) Run() {
-	fmt.Println("Encoding phrase (I want to run)... (this might take a while)")
+	fmt.Println("Encoding phrase \"I want to run\"... (this might take a while)")
 
 	// pick random vectors
 	vectors := make(map[string]*hyperdimensional.HdVec)
@@ -26,12 +26,12 @@ func (e *example) Run() {
 
 	// bind: "I want to run"
 	p := hyperdimensional.Add(
-		hyperdimensional.CircularConvolution(vectors["subject"], vectors["I"]),
-		hyperdimensional.CircularConvolution(vectors["verb"], vectors["want"]),
-		hyperdimensional.CircularConvolution(vectors["object"], vectors["run"]))
+		hyperdimensional.Xor(vectors["subject"], vectors["I"]),
+		hyperdimensional.Xor(vectors["verb"], vectors["want"]),
+		hyperdimensional.Xor(vectors["object"], vectors["run"]))
 
 	// unbind: query what is the verb?
-	answer := hyperdimensional.CircularConvolution(p, vectors["verb"].Involution())
+	answer := hyperdimensional.Xor(p, vectors["verb"])
 
 	// compare angle with all vectors to find the closest match
 	bestMatch := hyperdimensional.FindClosestCosineInMap(answer, vectors)

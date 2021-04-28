@@ -63,10 +63,10 @@ func (e *example) Run() {
 	fmt.Println()
 	fmt.Println("Asking (what letter is most commonly used after the set: \"th\"?")
 
-	th := hyperdimensional.Rotate(e.letters[116], 2).Multiply(hyperdimensional.Rotate(e.letters[104], 1))
+	th := hyperdimensional.Rotate(e.letters[116], 2).Xor(hyperdimensional.Rotate(e.letters[104], 1))
 
-	answerVec := th.Multiply(e.languages["en"])
-	answer := string(hyperdimensional.FindClosestCosineInMapInt(answerVec, e.letters))
+	answerVec := th.Xor(e.languages["en"])
+	answer := strconv.Itoa(hyperdimensional.FindClosestCosineInMapInt(answerVec, e.letters))
 
 	fmt.Println(fmt.Sprintf("Answer is %s", answer))
 }

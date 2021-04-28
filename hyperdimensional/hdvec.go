@@ -84,12 +84,23 @@ func Rotate(v *HdVec, count int) *HdVec {
 /*
  * XOR operation
  */
-func (v *HdVec) Multiply(v2 *HdVec) *HdVec {
+func (v *HdVec) Xor(v2 *HdVec) *HdVec {
 	for i := 0; i < v.Size(); i++ {
 		v.values[i] = v.values[i] ^ v2.values[i]
 	}
 	v.isMagnitudeCacheValid = false
 	return v
+}
+
+/*
+ * XOR operation
+ */
+func Xor(v1, v2 *HdVec) *HdVec {
+	result := NewEmptyOfSize(v1.Size())
+	for i := 0; i < v1.Size(); i++ {
+		result.values[i] = v1.values[i] ^ v2.values[i]
+	}
+	return result
 }
 
 func Add(vectors ...*HdVec) *HdVec {

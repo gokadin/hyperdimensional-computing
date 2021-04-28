@@ -84,7 +84,7 @@ func (suite *HDVecTestSuite) Test_Multiply() {
 	vec1 := FromSlice([]uint8{1, 1, 0, 0})
 	vec2 := FromSlice([]uint8{1, 0, 1, 0})
 
-	vec1.Multiply(vec2)
+	vec1.Xor(vec2)
 
 	suite.Equal(len(vec2.values), vec1.Size())
 	suite.Equal(uint8(0), vec1.At(0))
@@ -98,7 +98,7 @@ func (suite *HDVecTestSuite) Test_Multiply_invalidatesMagnitudeCache() {
 	vec1.isMagnitudeCacheValid = true
 	vec2 := FromSlice([]uint8{1, 0, 1, 0})
 
-	vec1.Multiply(vec2)
+	vec1.Xor(vec2)
 
 	suite.False(vec1.isMagnitudeCacheValid)
 }
