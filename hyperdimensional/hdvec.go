@@ -148,6 +148,16 @@ func Cosine(v1, v2 *HdVec) float32 {
 	return float32(Dot(v1, v2)) / (v1.Magnitude() * v2.Magnitude())
 }
 
+func Hamming(v1, v2 *HdVec) float32 {
+	var distance float32 = 0
+	for i := 0; i < v1.Size(); i++ {
+		if v1.At(i)^v2.At(i) == 1 {
+			distance++
+		}
+	}
+	return 1.0 - (distance / float32(v1.Size()))
+}
+
 func Dot(v1, v2 *HdVec) int {
 	var result int
 	for i := 0; i < v1.Size(); i++ {
