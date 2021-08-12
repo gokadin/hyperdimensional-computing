@@ -7,7 +7,7 @@ import (
 	"math/rand"
 )
 
-const VectorDefaultSize = 10000
+const VectorDefaultSize = 100000
 
 type HdVec struct {
 	values                []uint8
