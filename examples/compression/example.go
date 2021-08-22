@@ -2,7 +2,7 @@ package compression
 
 import (
 	"fmt"
-	"github.com/gokadin/hyperdimensional-computing/hyperdimensional"
+	hd "github.com/gokadin/hyperdimensional-computing/hyperdimensional/fhrr"
 	"math"
 	"math/rand"
 )
@@ -20,12 +20,12 @@ func NewExample() *example {
 }
 
 func (e *example) Run() {
-	dataSize := 243
+	dataSize := 9
 	data := make([][]uint8, dataSize)
-	positions := make([]*hyperdimensional.HdVec, dataSize)
+	positions := make([]*hd.HdVec, dataSize)
 	for i := 0; i < len(data); i++ {
 		data[i] = generateBits(scaleFactor)
-		positions[i] = hyperdimensional.Rand()
+		positions[i] = hd.Rand()
 	}
 
 	y := encodeTree(positions, data, nodeCount)
@@ -49,17 +49,17 @@ func (e *example) Run() {
 	// n > 243 = 5 (3^5)
 }
 
-func encodeTree(positions []*hyperdimensional.HdVec, data [][]uint8, nodeCount int) *hyperdimensional.HdVec {
+func encodeTree(positions []*hd.HdVec, data [][]uint8, nodeCount int) *hd.HdVec {
 	numLevels := int(math.Log(float64(len(data))) / math.Log(float64(nodeCount)))
 
-	previousBundle := make([]*hyperdimensional.HdVec, len(data))
+	previousBundle := make([]*hd.HdVec, len(data))
 	for i := 0; i < len(data); i++ {
 		previousBundle[i] = toHdVec(data[i])
 	}
 
 	for l := 0; l < numLevels; l++ {
 		bundleCount := int(math.Ceil(float64(len(previousBundle)) / float64(nodeCount)))
-		currentBundle := make([]*hyperdimensional.HdVec, bundleCount)
+		currentBundle := make([]*hd.HdVec, bundleCount)
 		for b := 0; b < bundleCount; b++ {
 			lastIndex := b*nodeCount + nodeCount
 			if lastIndex >= len(previousBundle) {
@@ -67,7 +67,6 @@ func encodeTree(positions []*hyperdimensional.HdVec, data [][]uint8, nodeCount i
 			}
 			currentBundle[b] = encodeBlock(positions[l*nodeCount:l*nodeCount+nodeCount], previousBundle[b*nodeCount:lastIndex])
 		}
-		fmt.Println("encoded level", l, "with", len(currentBundle))
 		previousBundle = currentBundle
 	}
 
@@ -78,14 +77,14 @@ func encodeTree(positions []*hyperdimensional.HdVec, data [][]uint8, nodeCount i
 	return previousBundle[0]
 }
 
-func decodeTree(positions []*hyperdimensional.HdVec, tree *hyperdimensional.HdVec, nodeCount, totalCount int) [][]uint8 {
-	decoded := []*hyperdimensional.HdVec{tree}
+func decodeTree(positions []*hd.HdVec, tree *hd.HdVec, nodeCount, totalCount int) [][]uint8 {
+	decoded := []*hd.HdVec{tree}
 	levelCount := int(math.Log(float64(totalCount))/math.Log(float64(nodeCount))) - 1
 	for l := levelCount; l >= 0; l-- {
-		levelDecoded := make([]*hyperdimensional.HdVec, len(decoded)*nodeCount)
+		levelDecoded := make([]*hd.HdVec, len(decoded)*nodeCount)
 		for d, encoded := range decoded {
 			for v := 0; v < nodeCount; v++ {
-				levelDecoded[d*nodeCount+v] = hyperdimensional.Xor(positions[l*nodeCount+v], encoded)
+				levelDecoded[d*nodeCount+v] = hd.Unbind(positions[l*nodeCount+v], encoded)
 			}
 		}
 		decoded = levelDecoded
@@ -99,12 +98,12 @@ func decodeTree(positions []*hyperdimensional.HdVec, tree *hyperdimensional.HdVe
 	return result
 }
 
-func encodeBlock(positions, data []*hyperdimensional.HdVec) *hyperdimensional.HdVec {
-	bindings := make([]*hyperdimensional.HdVec, len(data))
+func encodeBlock(positions, data []*hd.HdVec) *hd.HdVec {
+	bindings := make([]*hd.HdVec, len(data))
 	for i := 0; i < len(bindings); i++ {
-		bindings[i] = hyperdimensional.Xor(positions[i], data[i])
+		bindings[i] = hd.Bind(positions[i], data[i])
 	}
-	return hyperdimensional.Add(bindings...)
+	return hd.Bundle(bindings...)
 }
 
 func generateBits(count int) []uint8 {
@@ -117,27 +116,31 @@ func generateBits(count int) []uint8 {
 	return result
 }
 
-func toHdVec(vec []uint8) *hyperdimensional.HdVec {
-	factor := hyperdimensional.VectorDefaultSize / len(vec)
-	result := hyperdimensional.NewEmptyOfSize(hyperdimensional.VectorDefaultSize)
+func toHdVec(vec []uint8) *hd.HdVec {
+	factor := hd.VectorDefaultSize / len(vec)
+	result := hd.NewEmptyOfSize(hd.VectorDefaultSize)
 
 	for i, value := range vec {
 		for j := 0; j < factor; j++ {
-			result.Set(i*factor+j, value)
+			if value == 1 {
+				result.Set(i*factor+j, math.Pi-0.0000001)
+			} else {
+				result.Set(i*factor+j, -math.Pi+0.000001)
+			}
 		}
 	}
 
 	return result
 }
 
-func toBits(vec *hyperdimensional.HdVec) []uint8 {
-	factor := hyperdimensional.VectorDefaultSize / scaleFactor
+func toBits(vec *hd.HdVec) []uint8 {
+	factor := hd.VectorDefaultSize / scaleFactor
 	result := make([]uint8, scaleFactor)
 
 	for i := 0; i < scaleFactor; i++ {
 		ones := 0
 		for j := i * factor; j < i*factor+factor; j++ {
-			if vec.At(j) == 1 {
+			if vec.At(j) >= 0 {
 				ones++
 			}
 			if ones >= factor/2 {
@@ -165,7 +168,7 @@ func compareBits(v1, v2 []uint8) float32 {
 	return 100 - float32(errors)*100/float32(len(v1))
 }
 
-func compareVectors(v1, v2 *hyperdimensional.HdVec) float32 {
+func compareVectors(v1, v2 *hd.HdVec) float32 {
 	errors := 0
 	for i := 0; i < v1.Size(); i++ {
 		if v1.At(i) != v2.At(i) {
